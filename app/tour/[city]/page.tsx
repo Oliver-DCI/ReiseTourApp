@@ -2,26 +2,24 @@ import { tours } from "@/data/tours";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+
 type IdParamsCity = {
   params: Promise<{ city: string }>;
 };
-// ### http://localhost:3000/ :  (Im VSCode):=>app/page.tsx
-// ### http://localhost:3000/tour/ : (Im VSCode):=> app/tour/page.tsx
-// ### http://localhost:3000/tour/cusco :  (Im VSCode):=>app/tour/[city]/page.tsx
-// ### http:localhost:3000/tour/cusco/machu-picchu : (Im VSCode):=> app/tour/[city]/[spot]/page.tsx
 
 export default async function CityPage({ params }: IdParamsCity) {
   const { city } = await params;
 
   const currentCity = tours.find(
-    (tour) => tour.city.toLowerCase() === city.toLowerCase(),
+    (tour) => tour.city.toLowerCase() === city.toLowerCase()
   );
 
   if (!currentCity) notFound();
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero Section für die Stadt */}
+    <main className="min-h-screen bg-[#faf7f2]">
+
+      {/* Hero Section */}
       <div className="relative h-[40vh] md:h-[50vh] w-full">
         <Image
           src={currentCity.img}
@@ -29,6 +27,7 @@ export default async function CityPage({ params }: IdParamsCity) {
           fill
           className="object-cover"
         />
+
         <div className="absolute inset-0 bg-black/40 flex flex-col justify-center items-center text-white p-4">
           <Link
             href="/tour"
@@ -36,18 +35,22 @@ export default async function CityPage({ params }: IdParamsCity) {
           >
             ← Alle Ziele
           </Link>
+
           <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter shadow-sm">
             {currentCity.city}
           </h1>
         </div>
       </div>
 
-      {/* Content Bereich */}
+      {/* Content */}
       <section className="max-w-5xl mx-auto px-6 py-12">
+
+        {/* Intro */}
         <div className="mb-16">
-          <h2 className="text-sm uppercase tracking-widest text-red-600 font-bold mb-2">
+          <h2 className="text-sm uppercase tracking-widest text-[#d4af37] font-bold mb-2">
             Entdecken
           </h2>
+
           <p className="text-xl md:text-2xl text-slate-700 leading-relaxed font-light">
             {currentCity.description}
           </p>
@@ -57,7 +60,7 @@ export default async function CityPage({ params }: IdParamsCity) {
           Verfügbare Erlebnisse
         </h3>
 
-        {/* Touren Liste */}
+        {/* Spots */}
         <div className="grid gap-6">
           {currentCity.spots.map((spot) => (
             <Link
@@ -65,8 +68,9 @@ export default async function CityPage({ params }: IdParamsCity) {
               key={spot.id}
               className="group block"
             >
-              <div className="flex flex-col md:flex-row bg-gray-50 rounded-2xl overflow-hidden border border-gray-100 hover:border-red-200 hover:shadow-xl hover:bg-white transition-all duration-300">
-                {/* Spot Bild */}
+              <div className="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#d4af37] hover:shadow-xl transition-all duration-300">
+
+                {/* Bild */}
                 <div className="relative w-full md:w-64 h-48 md:h-auto">
                   <Image
                     src={spot.img}
@@ -76,13 +80,16 @@ export default async function CityPage({ params }: IdParamsCity) {
                   />
                 </div>
 
-                {/* Spot Info */}
+                {/* Info */}
                 <div className="p-6 flex flex-col justify-center grow">
+
                   <div className="flex justify-between items-start mb-2">
-                    <h4 className="text-xl font-bold text-slate-800 group-hover:text-red-600 transition-colors">
+                    <h4 className="text-xl font-bold text-slate-800 group-hover:text-[#d4af37] transition-colors">
                       {spot.title}
                     </h4>
-                    <span className="bg-white px-3 py-1 rounded-lg text-sm font-bold shadow-sm">
+
+                    {/* Preis – jetzt deutlich sichtbar */}
+                    <span className="bg-[#f7e7b5] text-slate-800 px-3 py-1 rounded-lg text-sm font-bold border border-[#d4af37] shadow-sm">
                       {spot.price}
                     </span>
                   </div>
@@ -104,15 +111,19 @@ export default async function CityPage({ params }: IdParamsCity) {
                       </svg>
                       {spot.duration}
                     </span>
-                    <span className="text-red-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+
+                    {/* Hover Text – jetzt Gold statt Rot */}
+                    <span className="text-[#d4af37] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                       Details anzeigen →
                     </span>
                   </div>
+
                 </div>
               </div>
             </Link>
           ))}
         </div>
+
       </section>
     </main>
   );

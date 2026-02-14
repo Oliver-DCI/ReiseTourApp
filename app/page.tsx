@@ -27,8 +27,8 @@ export default function ReisePage() {
   return (
     <div className="max-w-7xl mx-auto py-10 px-6">
 
-      {/* Slider über den Karten – wieder schmäler */}
-      <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-[0_6px_25px_rgba(0,0,0,0.08)] mb-10">
+      {/* Hero Slider – schmäler + kleinerer Overlay */}
+      <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-[0_6px_25px_rgba(0,0,0,0.08)] mb-8">
         <Image
           src={sliderImages[index].img}
           alt={sliderImages[index].city}
@@ -37,14 +37,14 @@ export default function ReisePage() {
           className="object-cover object-center transition-all duration-700 ease-in-out"
         />
 
-        {/* Edler Stadtname unten rechts */}
-        <div className="absolute bottom-6 right-6 bg-black/40 text-white px-7 py-3 rounded-xl text-3xl font-bold tracking-wide backdrop-blur-sm border border-[#d4af37] shadow-lg">
+        {/* Kleinerer, eleganter Stadtname unten rechts */}
+        <div className="absolute bottom-5 right-5 bg-black/40 text-white px-5 py-2 rounded-lg text-xl font-semibold tracking-wide backdrop-blur-sm border border-[#d4af37] shadow-md">
           {sliderImages[index].city}
         </div>
       </div>
 
-      {/* Karten-Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+      {/* Karten-Grid – näher am Hero */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-8">
         {tours.map((item) => (
           <article
             key={item.city}
@@ -89,8 +89,8 @@ export default function ReisePage() {
         ))}
       </div>
 
-      {/* Textblock unterhalb – elegantes Div */}
-      <div className="max-w-3xl mx-auto mb-6 p-6 rounded-xl bg-white/60 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e6e6e6]">
+      {/* Textblock – elegantes Div + näher an Karten */}
+      <div className="max-w-3xl mx-auto mb-4 p-6 rounded-xl bg-white/60 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e6e6e6]">
         <p className="text-center text-slate-700 leading-relaxed text-[15px] italic">
           Deutschland ist ein Land voller Kontraste – von pulsierenden Metropolen
           bis hin zu stillen Landschaften, die Geschichten erzählen. Jede Stadt

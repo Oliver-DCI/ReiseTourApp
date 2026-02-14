@@ -24,18 +24,18 @@ export const tours: City[] = [
     img: "https://images.pexels.com/photos/19284574/pexels-photo-19284574.jpeg",
     spots: [
       {
-        id: "machu-picchu",
-        title: "Machu Picchu Express",
-        duration: "1 Tag",
-        price: "299€",
-        img: "https://images.unsplash.com/photo-1587595431973-160d0d94add1?q=80&w=500",
+        id: "berlin-spree-express",
+        title: "Berlin Spree Express",
+        duration: "3 Std.",
+        price: "39€",
+        img: "https://images.pexels.com/photos/30305292/pexels-photo-30305292.jpeg",
       },
       {
-        id: "sacsayhuaman",
-        title: "City Tour & Sacsayhuamán",
+        id: "berlin-highlights-tour",
+        title: "Berlin Highlights Tour",
         duration: "4 Std.",
-        price: "45€",
-        img: "https://images.unsplash.com/photo-1640549768697-6e9483127244?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        price: "55€",
+        img: "https://images.pexels.com/photos/33480973/pexels-photo-33480973.jpeg",
       },
             
     ],
@@ -51,44 +51,43 @@ export const tours: City[] = [
 
     spots: [
       {
-        id: "colca-canyon",
-        title: "Colca Canyon Trekking",
-        duration: "2 Tage",
-        price: "120€",
-        img: "https://images.unsplash.com/photo-1617382119463-101efd32d048?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        id: "frankfurt-hop-on-hop-off",
+        title: "Frankfurt Night Express",
+        duration: "2 Std.",
+        price: "60€",
+        img: "https://images.pexels.com/photos/11104942/pexels-photo-11104942.jpeg",
       },
       {
-        id: "sillar-route",
-        title: "Sillar Route & Kloster",
-        duration: "5 Std.",
+        id: "frankfurt-main-cruise",
+        title: "Main River Panorama",
+        duration: "3 Std.",
         price: "35€",
-        img: "https://images.unsplash.com/photo-1597188446821-359133fe0729?q=80&w=1888&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        img: "https://images.pexels.com/photos/19307317/pexels-photo-19307317.jpeg",
       },
     ],
   },
 
   // München
   {
-    city: "München",
+    city: "Muenchen",
     title: "Weltstadt mit Herz und Alpenblick",
     description:
       "München liegt zwischen Isar und Alpenrand. Wer München betritt, spürt die besondere Mischung aus Tradition und Lebensfreude. Es ist nicht nur die Heimat des Oktoberfests, sondern eine Stadt, in der bayerisches Brauchtum auf moderne Eleganz trifft. Zwischen historischen Plätzen, grünen Biergärten und klarer Bergluft erzählt jeder Augenblick von Genuss, Kultur und einem Lebensgefühl, das weit über die Stadtgrenzen hinausstrahlt.",
     img: "https://images.pexels.com/photos/13762982/pexels-photo-13762982.jpeg",
     spots: [
       {
-        id: "Uros-Taquileinseln",
-        title: "Uros & Taquile Inseln",
+        id: "munich-hop-on-hop-off",
+        title: "München Stadion Tour",
         duration: "1 Tag",
-        price: "55€",
-        img: "https://images.unsplash.com/photo-1536705284215-000a0c2f0406?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        price: "26€",
+        img: "https://images.pexels.com/photos/874464/pexels-photo-874464.jpeg",
       },
       {
-        id: "Puno-city",
-        title: "City-Tour",
+        id: "munich-city-highlights",
+        title: "Munich City Highlights Tour",
         duration: "1 Tag",
-        price: "55€",
-
-        img: "https://images.unsplash.com/photo-1568805647831-79a19e414f21?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        price: "69€",         
+        img: "https://images.pexels.com/photos/4213372/pexels-photo-4213372.jpeg",
       },
       
     ],
@@ -103,19 +102,18 @@ export const tours: City[] = [
     img: "https://images.pexels.com/photos/6570407/pexels-photo-6570407.jpeg",
     spots: [
       {
-        id: "Uros-Taquileinseln",
-        title: "Uros & Taquile Inseln",
-        duration: "1 Tag",
-        price: "55€",
-        img: "https://images.unsplash.com/photo-1536705284215-000a0c2f0406?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        id: "hamburg-hop-on-hop-off",
+        title: "Hamburg Elb Filharmonie",
+        duration: "2 Std.",
+        price: "29€",        
+        img: "https://images.pexels.com/photos/258642/pexels-photo-258642.jpeg",
       },
       {
-        id: "Puno-city",
-        title: "City-Tour",
-        duration: "1 Tag",
-        price: "55€",
-
-        img: "https://images.unsplash.com/photo-1568805647831-79a19e414f21?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        id: "hamburg-harbor-cruise",
+        title: "Hamburg Boots Tour",
+        duration: "4 Tag",
+        price: "46€",
+        img: "https://images.pexels.com/photos/29092045/pexels-photo-29092045.jpeg",
       },
       
     ],

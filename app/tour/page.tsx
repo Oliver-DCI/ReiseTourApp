@@ -1,69 +1,76 @@
 import { tours } from "@/data/tours";
-
 import Link from "next/link";
 import Image from "next/image";
+
 export default function ReisePage() {
   return (
-    <div className="container mx-auto py-16 px-6">
-      <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-4 text-slate-700">
-          DEUTSCHLAND EXTRA: Die Vielfalt der Horizonte
-        </h1>
-        <h2 className="text-2xl font-semibold mb-4 text-slate-500">
-          Von der rauen Nordsee über verwunschene Wälder bis zu den Gipfeln der Alpen.
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto italic text-lg">
-          Es gibt Reisen, die verändern nicht nur deinen Standort, sondern deinen Blick auf die Welt. Wer Deutschland bereist, folgt einem Weg aus Geschichte, Kultur und lebendiger Gegenwart. Hier, wo Leuchttürme dem Wind trotzen und Burgen von vergangenen Zeiten erzählen, wartet hinter jeder Kurve ein neues Kapitel voller Entdeckungen.
-        </p>
-      </div>
+    <div className="bg-white min-h-screen">
+      <div className="max-w-7xl mx-auto py-12 px-6">
 
-      {/* Grid Bereich */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {tours.map((item) => (
-          <article
-            key={item.city}
-            className="flex flex-col bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-300 group"
-          >
-            {/* Bild Bereich */}
-            <div className="relative h-64 overflow-hidden">
-              <Image
-                src={item.img}
-                alt={item.city}
-                fill
-                className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="absolute top-4 left-4 bg-red-600 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
-                {item.city}
-              </span>
-            </div>
+        {/* Textblock – jetzt im eleganten Div */}
+        <div className="max-w-4xl mx-auto mb-12 p-8 rounded-2xl bg-white/60 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e6e6e6] text-center">
+          <h1 className="text-3xl font-bold mb-4 text-slate-800 italic">
+            Deutschland entdecken –{" "}
+            <span className="text-[#d4af37]">Vielfalt erleben</span>
+          </h1>
 
-            {/* Content Bereich */}
-            <div className="p-6 flex flex-col grow">
-              <h2 className="text-2xl font-bold text-slate-700 mb-3 group-hover:text-red-600 transition-colors">
-                {item.city}
-              </h2>
+          <h2 className="text-xl font-semibold mb-4 text-slate-600">
+            Von der Nordsee bis zu den Alpen – jede Region erzählt ihre eigene Geschichte.
+          </h2>
 
-              <div className="mb-6 grow">
-                <p className="text-md text-slate-600 leading-relaxed">
-                  {/* Schneidet den String bei 12 Zeichen ab und fügt ... hinzu */}
+          <p className="text-slate-700 leading-relaxed italic text-[15px]">
+            Deutschland ist ein Land voller Kontraste: moderne Metropolen, stille Wälder,
+            historische Altstädte und beeindruckende Landschaften. Jede Stadt öffnet ein
+            neues Kapitel voller Kultur, Geschichte und einzigartiger Erlebnisse.
+          </p>
+        </div>
+
+        {/* Karten-Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {tours.map((item) => (
+            <article
+              key={item.city}
+              className="flex flex-col bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 group"
+            >
+              {/* Bild */}
+              <div className="relative h-56 overflow-hidden">
+                <Image
+                  src={item.img}
+                  alt={item.city}
+                  fill
+                  className="object-cover object-center group-hover:scale-110 transition duration-700"
+                />
+
+                {/* Gold Badge */}
+                <span className="absolute top-3 left-3 bg-[#d4af37] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
+                  {item.city}
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col grow">
+                <h2 className="text-xl font-bold text-slate-700 mb-2 group-hover:text-[#d4af37] transition-colors">
+                  {item.city}
+                </h2>
+
+                <p className="text-sm text-slate-600 leading-relaxed grow">
                   {item.description.length > 12
-                    ? item.description.slice(0, 100) + "..."
+                    ? item.description.slice(0, 90) + "..."
                     : item.description}
                 </p>
-              </div>
 
-              <div className="mt-auto">
+                {/* Button */}
                 <Link
                   href={`/tour/${item.city.toLowerCase()}`}
-                  className="inline-block text-center w-full bg-blue-100 text-slate-800 font-bold py-4 rounded-xl hover:bg-slate-800 hover:text-white transition-all duration-300 transform active:scale-95"
+                  className="mt-4 inline-block text-center w-full bg-[#f7e7b5] text-slate-800 font-semibold py-2 px-3 rounded-lg text-sm hover:bg-[#d4af37] hover:text-white transition-all duration-300 active:scale-95"
                 >
-                  {item.title} ansehen
+                  Mehr Infos anzeigen
                 </Link>
               </div>
-            </div>
-          </article>
-        ))}
+            </article>
+          ))}
+        </div>
+
       </div>
     </div>
   );

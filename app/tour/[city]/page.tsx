@@ -3,6 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 
+import Weather from "@/components/Weather";
+
 type IdParamsCity = {
   params: Promise<{ city: string }>;
 };
@@ -56,6 +58,11 @@ export default async function CityPage({ params }: IdParamsCity) {
           </p>
         </div>
 
+        {/* Wetter */}
+        <div className="mb-16">
+          <Weather city={currentCity.city} />
+        </div>
+
         <h3 className="text-3xl font-bold text-slate-900 mb-8 border-b pb-4">
           Verfügbare Erlebnisse
         </h3>
@@ -88,7 +95,7 @@ export default async function CityPage({ params }: IdParamsCity) {
                       {spot.title}
                     </h4>
 
-                    {/* Preis – jetzt deutlich sichtbar */}
+                    {/* Preis */}
                     <span className="bg-[#f7e7b5] text-slate-800 px-3 py-1 rounded-lg text-sm font-bold border border-[#d4af37] shadow-sm">
                       {spot.price}
                     </span>
@@ -112,7 +119,6 @@ export default async function CityPage({ params }: IdParamsCity) {
                       {spot.duration}
                     </span>
 
-                    {/* Hover Text – jetzt Gold statt Rot */}
                     <span className="text-[#d4af37] font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
                       Details anzeigen →
                     </span>

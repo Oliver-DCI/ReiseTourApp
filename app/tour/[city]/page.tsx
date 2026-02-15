@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 
 import Weather from "@/components/Weather";
+import WeatherForecast from "@/components/WeatherForecast";
 
 type IdParamsCity = {
   params: Promise<{ city: string }>;
@@ -58,16 +59,17 @@ export default async function CityPage({ params }: IdParamsCity) {
           </p>
         </div>
 
-        {/* Wetter */}
-        <div className="mb-16">
+        {/* Wetter + Vorhersage nebeneinander */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           <Weather city={currentCity.city} />
+          <WeatherForecast city={currentCity.city} />
         </div>
 
+        {/* Erlebnisse */}
         <h3 className="text-3xl font-bold text-slate-900 mb-8 border-b pb-4">
           Verfügbare Erlebnisse
         </h3>
 
-        {/* Spots */}
         <div className="grid gap-6">
           {currentCity.spots.map((spot) => (
             <Link
@@ -95,7 +97,6 @@ export default async function CityPage({ params }: IdParamsCity) {
                       {spot.title}
                     </h4>
 
-                    {/* Preis */}
                     <span className="bg-[#f7e7b5] text-slate-800 px-3 py-1 rounded-lg text-sm font-bold border border-[#d4af37] shadow-sm">
                       {spot.price}
                     </span>

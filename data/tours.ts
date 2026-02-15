@@ -98,7 +98,7 @@ export const tours: City[] = [
     city: "Hamburg",
     title: "Weltstadt mit Herz und Alpenblick",
     description:
-      "München liegt zwischen Isar und Alpenrand. Wer München betritt, spürt die besondere Mischung aus Tradition und Lebensfreude. Es ist nicht nur die Heimat des Oktoberfests, sondern eine Stadt, in der bayerisches Brauchtum auf moderne Eleganz trifft. Zwischen historischen Plätzen, grünen Biergärten und klarer Bergluft erzählt jeder Augenblick von Genuss, Kultur und einem Lebensgefühl, das weit über die Stadtgrenzen hinausstrahlt.",
+      "Hamburg liegt an Elbe und Alster. Wer Hamburg betritt, spürt sofort das maritime Flair und die weltoffene Atmosphäre. Es ist nicht nur die Heimat des Hafens und der Reeperbahn, sondern eine Stadt, in der hanseatische Tradition auf moderne Architektur trifft. Zwischen historischen Speichern, weiten Wasserflächen und lebendigen Vierteln erzählt jeder Augenblick von Freiheit, Kultur und einem nordischen Lebensgefühl, das weit über die Stadtgrenzen hinausstrahlt.",
     img: "https://images.pexels.com/photos/6570407/pexels-photo-6570407.jpeg",
     spots: [
       {

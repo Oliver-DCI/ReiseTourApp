@@ -4,32 +4,40 @@ import { usePathname } from "next/navigation";
 
 export default function Header() {
   const pathname = usePathname();
+
   const links = [
     { href: "/", link: "Home" },
     { href: "/tour", link: "Reise" },
     { href: "/about", link: "Über uns" },
     { href: "/contact", link: "Kontakt" },
-    { href: "/login", link: "Login" },
   ];
 
   return (
-    <header className="bg-gradient-to-r from-white via-[#d6d6d6] to-[#b5b5b5] backdrop-blur-md border-b sticky top-0 z-50 text-[#3f3f3f] shadow-md">
-      <nav className="container mx-auto px-8 py-6 flex justify-between items-center">
-        <Link href="/" className="font-bold text-3xl flex items-center gap-2 italic">
-          <span className="text-[#d4af37]">GoldenWings</span>
+    <header className="bg-gradient-to-r from-[#f8f5ef] via-[#e6dfd3] to-[#d4c7b4] backdrop-blur-md border-b sticky top-0 z-50 shadow-md">
+      
+      <nav className="max-w-[1400px] mx-auto px-7 py-8 flex justify-between items-center">
+        
+        {/* Logo */}
+        <Link
+          href="/"
+          className="font-bold text-3xl italic tracking-wide"
+        >
+          <span className="text-[#c9a227]">GoldenWings</span>
         </Link>
 
-        <div className="hidden md:flex space-x-10 font-medium">
+        {/* Navigation */}
+        <div className="hidden md:flex gap-10 font-medium">
           {links.map((l) => {
             const isActive = pathname === l.href;
+
             return (
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative py-2 transition-all duration-300 group ${
+                className={`relative py-2 transition-all duration-300 ${
                   isActive
-                    ? "text-[#d4af37] border-b-2 border-[#d4af37]"
-                    : "hover:text-[#d4af37] text-[#5a5a5a]"
+                    ? "text-[#c9a227] border-b-2 border-[#c9a227]"
+                    : "text-[#4a4a4a] hover:text-[#c9a227]"
                 }`}
               >
                 {l.link}
@@ -38,9 +46,16 @@ export default function Header() {
           })}
         </div>
 
-        <button className="bg-[#d4af37] text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-[#b8860b] transition">
-          Jetzt Buchen
-        </button>
+        {/* Login Button */}
+        <Link
+          href="/login"
+          className="px-6 py-2.5 rounded-full text-sm font-semibold 
+                     bg-[#3a3a3a] text-white 
+                     hover:bg-[#1f1f1f] transition shadow-md"
+        >
+          Login
+        </Link>
+
       </nav>
     </header>
   );

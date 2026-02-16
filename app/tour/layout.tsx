@@ -19,9 +19,9 @@ export default function ReiseLayout({
   return (
     <section className="bg-white min-h-screen">
 
-      {/* Sub-Navigation im GoldenWings-Stil */}
+      {/* Sub-Navigation */}
       <nav className="bg-white py-4 border-b border-[#e6e6e6] shadow-sm">
-        <div className="container mx-auto flex justify-center gap-10 font-medium text-slate-700">
+        <div className="mx-auto max-w-[1400px] px-7 flex justify-center gap-10 font-medium">
           {links.map((l) => {
             const isActive = pathname === l.href;
 
@@ -29,17 +29,16 @@ export default function ReiseLayout({
               <Link
                 key={l.href}
                 href={l.href}
-                className={`relative py-2 transition-all duration-300 group ${
+                className={`relative py-2 transition-all duration-300 ${
                   isActive
-                    ? "text-[#d4af37] font-semibold"
-                    : "hover:text-[#d4af37] text-slate-700"
+                    ? "text-[#c9a227] font-semibold"
+                    : "text-[#4a4a4a] hover:text-[#c9a227]"
                 }`}
               >
                 {l.link}
 
-                {/* Goldene Unterstreichung beim aktiven Link */}
                 {isActive && (
-                  <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#d4af37] rounded-full"></span>
+                  <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[#c9a227] rounded-full" />
                 )}
               </Link>
             );
@@ -48,7 +47,7 @@ export default function ReiseLayout({
       </nav>
 
       {/* Inhalt */}
-      <div className="py-8">{children}</div>
+      <div className="pt-0 pb-8">{children}</div>
     </section>
   );
 }

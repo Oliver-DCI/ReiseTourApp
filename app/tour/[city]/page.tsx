@@ -20,10 +20,10 @@ export default async function CityPage({ params }: IdParamsCity) {
   if (!currentCity) notFound();
 
   return (
-    <main className="min-h-screen bg-[#faf7f2]">
+    <main className="min-h-screen bg-[#faf7f2] p-0 m-0">
 
       {/* Hero Section */}
-      <div className="relative h-[40vh] md:h-[50vh] w-full">
+      <div className="relative h-[40vh] md:h-[50vh] w-full m-0 p-0">
         <Image
           src={currentCity.img}
           alt={currentCity.city}
@@ -59,7 +59,7 @@ export default async function CityPage({ params }: IdParamsCity) {
           </p>
         </div>
 
-        {/* Wetter + Vorhersage nebeneinander */}
+        {/* Wetter + Vorhersage */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
           <Weather city={currentCity.city} />
           <WeatherForecast city={currentCity.city} />

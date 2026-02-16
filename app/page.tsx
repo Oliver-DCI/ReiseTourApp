@@ -15,36 +15,46 @@ const sliderImages = [
 export default function ReisePage() {
   const [index, setIndex] = useState(0);
 
-  // Slider wechselt alle 3 Sekunden
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % sliderImages.length);
-    }, 3000);
-
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto py-10 px-6">
+    <div className="w-full bg-white min-h-screen">
 
-      {/* Hero Slider – schmäler + kleinerer Overlay */}
-      <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-[0_6px_25px_rgba(0,0,0,0.08)] mb-8">
+      {/* FULL-WIDTH HERO SLIDER */}
+      <div className="relative w-full h-[520px] overflow-hidden mb-12">
         <Image
           src={sliderImages[index].img}
           alt={sliderImages[index].city}
           fill
+          className="object-cover object-center"
           priority
-          className="object-cover object-center transition-all duration-700 ease-in-out"
         />
 
-        {/* Kleinerer, eleganter Stadtname unten rechts */}
-        <div className="absolute bottom-5 right-5 bg-black/40 text-white px-5 py-2 rounded-lg text-xl font-semibold tracking-wide backdrop-blur-sm border border-[#d4af37] shadow-md">
+        <div className="absolute inset-0 bg-black/20" />
+
+        <div className="absolute bottom-8 right-10 bg-[#c9a227]/75 text-white px-4 py-2 rounded-md text-lg font-semibold tracking-wide backdrop-blur-sm border border-white/30 shadow-lg">
           {sliderImages[index].city}
         </div>
       </div>
 
-      {/* Karten-Grid – näher am Hero */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-7 mb-8">
+      {/* INTRO TEXTBLOCK */}
+      <div className="max-w-3xl mx-auto mb-16 p-8 rounded-xl bg-[#f8f5ef]/95 backdrop-blur-sm shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e0d8c8] text-center">
+        <h2 className="text-2xl font-serif font-bold text-[#c9a227] mb-3 tracking-wide">
+          GoldenWings Städtereisen
+        </h2>
+
+        <p className="text-[17px] text-slate-700 leading-relaxed font-serif">
+          Reisen Sie mit GoldenWings und entdecken Sie unsere exklusiv für Sie zusammengestellten Städtereisen nach Berlin, Frankfurt, Hamburg und München.
+        </p>
+      </div>
+
+      {/* KARTEN-GRID – identisch wie TourPage, kein grauer Hintergrund */}
+      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
         {tours.map((item) => (
           <article
             key={item.city}
@@ -59,15 +69,14 @@ export default function ReisePage() {
                 className="object-cover object-center group-hover:scale-110 transition duration-700"
               />
 
-              {/* Gold Badge */}
-              <span className="absolute top-3 left-3 bg-[#d4af37] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
+              <span className="absolute top-3 left-3 bg-[#c9a227] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
                 {item.city}
               </span>
             </div>
 
             {/* Content */}
             <div className="p-5 flex flex-col grow">
-              <h2 className="text-xl font-bold text-slate-700 mb-2 group-hover:text-[#d4af37] transition-colors">
+              <h2 className="text-xl font-bold text-slate-700 mb-2 group-hover:text-[#c9a227] transition-colors">
                 {item.city}
               </h2>
 
@@ -77,26 +86,15 @@ export default function ReisePage() {
                   : item.description}
               </p>
 
-              {/* Button */}
               <Link
                 href={`/tour/${item.city.toLowerCase()}`}
-                className="mt-4 inline-block text-center w-full bg-[#f7e7b5] text-slate-800 font-semibold py-2 px-3 rounded-lg text-sm hover:bg-[#d4af37] hover:text-white transition-all duration-300 active:scale-95"
+                className="mt-4 inline-block text-center w-full bg-[#f7e7b5] text-slate-800 font-semibold py-2 px-3 rounded-lg text-sm hover:bg-[#c9a227] hover:text-white transition-all duration-300 active:scale-95"
               >
-                Mehr Infos anzeigen
+                Informationen anzeigen
               </Link>
             </div>
           </article>
         ))}
-      </div>
-
-      {/* Textblock – elegantes Div + näher an Karten */}
-      <div className="max-w-3xl mx-auto mb-4 p-6 rounded-xl bg-white/60 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e6e6e6]">
-        <p className="text-center text-slate-700 leading-relaxed text-[15px] italic">
-          Deutschland ist ein Land voller Kontraste – von pulsierenden Metropolen
-          bis hin zu stillen Landschaften, die Geschichten erzählen. Jede Stadt
-          öffnet ein neues Kapitel voller Kultur, Geschichte und einzigartiger
-          Erlebnisse.
-        </p>
       </div>
 
     </div>

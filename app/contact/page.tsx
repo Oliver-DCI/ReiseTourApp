@@ -1,3 +1,5 @@
+"use client";
+
 import ContactForm from "@/components/ContactForm";
 import {
   HiOutlineChatAlt2,
@@ -69,7 +71,13 @@ export default function ContactPage() {
 
           {/* Rechte Spalte: Formular */}
           <div className="lg:col-span-2">
-            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100">
+            <div
+              className="
+                p-8 md:p-12 rounded-3xl shadow-xl border border-gray-100
+                bg-gradient-to-br from-[#f8f5ef] via-[#e8d9b8] to-[#d4af37]/40
+                backdrop-blur-sm
+              "
+            >
               <h2 className="text-2xl font-bold mb-8 text-slate-800">
                 Schreib uns eine Nachricht
               </h2>

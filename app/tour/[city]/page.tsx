@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import Weather from "@/components/Weather";
 import WeatherForecast from "@/components/WeatherForecast";
+import NotesBox from "@/components/NotesBox"; // ⭐ neue Client-Komponente
 
 type IdParamsCity = {
   params: Promise<{ city: string }>;
@@ -54,7 +55,7 @@ export default async function CityPage({ params }: IdParamsCity) {
             Entdecken
           </h2>
 
-          <p className="text-xl md:text-2xl text-slate-700 leading-relaxed font-light">
+          <p className="text-base md:text-lg text-slate-700 leading-relaxed font-light">
             {currentCity.description}
           </p>
         </div>
@@ -79,7 +80,6 @@ export default async function CityPage({ params }: IdParamsCity) {
             >
               <div className="flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-[#d4af37] hover:shadow-xl transition-all duration-300">
 
-                {/* Bild */}
                 <div className="relative w-full md:w-64 h-48 md:h-auto">
                   <Image
                     src={spot.img}
@@ -89,9 +89,7 @@ export default async function CityPage({ params }: IdParamsCity) {
                   />
                 </div>
 
-                {/* Info */}
                 <div className="p-6 flex flex-col justify-center grow">
-
                   <div className="flex justify-between items-start mb-2">
                     <h4 className="text-xl font-bold text-slate-800 group-hover:text-[#d4af37] transition-colors">
                       {spot.title}
@@ -124,12 +122,14 @@ export default async function CityPage({ params }: IdParamsCity) {
                       Details anzeigen →
                     </span>
                   </div>
-
                 </div>
               </div>
             </Link>
           ))}
         </div>
+
+        {/* ⭐ Notizen-Komponente */}
+        <NotesBox city={currentCity.city} />
 
       </section>
     </main>

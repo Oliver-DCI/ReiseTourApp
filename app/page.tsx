@@ -25,20 +25,22 @@ export default function ReisePage() {
   return (
     <div className="w-full bg-white min-h-screen">
 
-      {/* FULL-WIDTH HERO SLIDER */}
-      <div className="relative w-full h-[520px] overflow-hidden mb-12">
-        <Image
-          src={sliderImages[index].img}
-          alt={sliderImages[index].city}
-          fill
-          className="object-cover object-center"
-          priority
-        />
+      {/* HERO SLIDER – gleiche Breite wie Karten */}
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="relative w-full h-115 overflow-hidden mb-12 rounded-2xl mt-10">
+          <Image
+            src={sliderImages[index].img}
+            alt={sliderImages[index].city}
+            fill
+            className="object-cover object-center"
+            priority
+          />
 
-        <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/20" />
 
-        <div className="absolute bottom-8 right-10 bg-[#c9a227]/75 text-white px-4 py-2 rounded-md text-lg font-semibold tracking-wide backdrop-blur-sm border border-white/30 shadow-lg">
-          {sliderImages[index].city}
+          <div className="absolute bottom-8 right-10 bg-[#c9a227]/75 text-white px-4 py-2 rounded-md text-lg font-semibold tracking-wide backdrop-blur-sm border border-white/30 shadow-lg">
+            {sliderImages[index].city}
+          </div>
         </div>
       </div>
 
@@ -53,7 +55,7 @@ export default function ReisePage() {
         </p>
       </div>
 
-      {/* KARTEN-GRID – identisch wie TourPage, kein grauer Hintergrund */}
+      {/* KARTEN-GRID – identisch wie TourPage */}
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
         {tours.map((item) => (
           <article

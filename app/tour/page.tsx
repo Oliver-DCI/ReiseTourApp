@@ -7,9 +7,12 @@ export default function ReisePage() {
     <div className="bg-white min-h-screen">
       <div className="max-w-7xl mx-auto py-12 px-6">
 
-        {/* Textblock – jetzt im eleganten Div */}
-        <div className="max-w-4xl mx-auto mb-12 p-8 rounded-2xl bg-white/60 backdrop-blur-md shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e6e6e6] text-center">
-          <h1 className="text-3xl font-bold mb-4 text-slate-800 italic">
+        {/* Textblock – jetzt exakt so breit wie die Karten */}
+        <div className="max-w-7xl mx-auto mb-12 p-8 rounded-2xl 
+                        bg-white/60 backdrop-blur-md 
+                        border border-[#e6e6e6] text-center
+                        shadow-[0_0_18px_rgba(212,175,55,0.45)]">
+          <h1 className="text-3xl font-bold mb-4 text-slate-800 ">
             Deutschland entdecken –{" "}
             <span className="text-[#d4af37]">Vielfalt erleben</span>
           </h1>
@@ -18,7 +21,7 @@ export default function ReisePage() {
             Von der Nordsee bis zu den Alpen – jede Region erzählt ihre eigene Geschichte.
           </h2>
 
-          <p className="text-slate-700 leading-relaxed italic text-[15px]">
+          <p className="text-slate-700 leading-relaxed text-[15px]">
             Deutschland ist ein Land voller Kontraste: moderne Metropolen, stille Wälder,
             historische Altstädte und beeindruckende Landschaften. Jede Stadt öffnet ein
             neues Kapitel voller Kultur, Geschichte und einzigartiger Erlebnisse.

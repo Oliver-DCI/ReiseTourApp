@@ -20,8 +20,8 @@ export default function ReiseLayout({
     <section className="bg-white min-h-screen">
 
       {/* Sub-Navigation */}
-      <nav className="bg-white py-4 border-b border-[#e6e6e6] shadow-sm">
-        <div className="mx-auto max-w-[1400px] px-7 flex justify-center gap-10 font-medium">
+      <nav className="bg-white py-4 border-1 border-[#e6e6e6] shadow-sm">
+        <div className="mx-auto max-w-[1400px] px-7 flex justify-center gap-16 font-medium">
           {links.map((l) => {
             const isActive = pathname === l.href;
 
@@ -32,7 +32,7 @@ export default function ReiseLayout({
                 className={`relative py-2 transition-all duration-300 ${
                   isActive
                     ? "text-[#c9a227] font-semibold"
-                    : "text-[#4a4a4a] hover:text-[#c9a227]"
+                    : "text-[#3a3a3a] hover:text-[#c9a227]"
                 }`}
               >
                 {l.link}
@@ -47,7 +47,7 @@ export default function ReiseLayout({
       </nav>
 
       {/* Inhalt */}
-      <div className="pt-0 pb-8">{children}</div>
+      <div className="pt-0">{children}</div>
     </section>
   );
 }

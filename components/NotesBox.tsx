@@ -70,7 +70,7 @@ export default function NotesBox({ city }: { city: string }) {
       </h3>
 
       {!user ? (
-        <p className="text-red-600 font-medium">
+        <p className="text-[#d4af37]  font-medium">
           Du musst eingeloggt sein, um Notizen zu dieser Reise zu erfassen.
         </p>
       ) : (

@@ -25,9 +25,9 @@ export default function ReisePage() {
   return (
     <div className="w-full bg-white min-h-screen">
 
-      {/* HERO SLIDER – gleiche Breite wie Karten */}
+      {/* HERO SLIDER – Container */}
       <div className="max-w-7xl mx-auto px-6">
-        <div className="relative w-full h-115 overflow-hidden mb-12 rounded-2xl mt-10">
+        <div className="relative w-full h-105 overflow-hidden mb-12 rounded-2xl mt-6">
           <Image
             src={sliderImages[index].img}
             alt={sliderImages[index].city}
@@ -44,18 +44,33 @@ export default function ReisePage() {
         </div>
       </div>
 
-      {/* INTRO TEXTBLOCK */}
-      <div className="max-w-3xl mx-auto mb-16 p-8 rounded-xl bg-[#f8f5ef]/95 backdrop-blur-sm shadow-[0_4px_18px_rgba(0,0,0,0.06)] border border-[#e0d8c8] text-center">
-        <h2 className="text-2xl font-serif font-bold text-[#c9a227] mb-3 tracking-wide">
-          GoldenWings Städtereisen
-        </h2>
+      {/* INTRO TEXTBLOCK – gleicher Container wie Slider */}
+      <div className="max-w-7xl mx-auto px-6 mb-12">
+  <div
+    className="w-full p-6 rounded-2xl 
+               bg-white/60 backdrop-blur-md 
+               border border-[#e6e6e6] text-center
+               shadow-[0_0_18px_rgba(212,175,55,0.45)]"
+  >
+    <h2 className="text-3xl font-bold mb-4 text-slate-800">
+      <span className="text-[#d4af37]">Golden</span>
+      <span className="text-[#3a3a3a]">Wings</span>
+      {" "}– Reisen mit Stil & Komfort
+    </h2>
 
-        <p className="text-[17px] text-slate-700 leading-relaxed font-serif">
-          Reisen Sie mit GoldenWings und entdecken Sie unsere exklusiv für Sie zusammengestellten Städtereisen nach Berlin, Frankfurt, Hamburg und München.
-        </p>
-      </div>
+    <p className="text-[17px] text-slate-700 leading-relaxed max-w-3xl mx-auto">
+      GoldenWings steht für ausgewählte Städtereisen, die Eleganz und Komfort
+      miteinander verbinden. Unsere Reisen führen Sie in die spannendsten Städte
+      Deutschlands – mit einem Fokus auf Qualität, Atmosphäre und besonderen Momenten.
+      <br /><br />
+      Jede Reise wird mit Liebe zum Detail geplant, damit Sie sich von Anfang an
+      entspannt zurücklehnen und das Gefühl von stilvollem Reisen genießen können.
+    </p>
+  </div>
+</div>
 
-      {/* KARTEN-GRID – identisch wie TourPage */}
+
+      {/* KARTEN-GRID */}
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
         {tours.map((item) => (
           <article

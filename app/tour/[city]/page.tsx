@@ -128,6 +128,21 @@ export default async function CityPage({ params }: IdParamsCity) {
           ))}
         </div>
 
+        {/* ⭐ Buchungshinweis */}
+        <div className="mt-16 p-6 bg-white border border-[#d4af37]/40 rounded-2xl shadow-sm text-center">
+          <p className="text-lg text-slate-700 mb-4">
+            Haben Sie sich für die Städtereise entschieden?  
+            Klicken Sie auf <span className="font-semibold text-[#d4af37]">„Jetzt buchen“</span> und wählen Sie Ihre gewünschte Reisedauer aus.
+          </p>
+
+          <Link
+            href={`/booking/${city}`}
+            className="inline-block bg-[#d4af37] hover:bg-[#b8962f] text-white font-semibold px-6 py-3 rounded-full transition shadow-md"
+          >
+            Jetzt buchen
+          </Link>
+        </div>
+
         {/* ⭐ Notizen-Komponente */}
         <NotesBox city={currentCity.city} />
 

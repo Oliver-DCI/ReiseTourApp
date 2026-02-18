@@ -19,21 +19,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Wrong password" }, { status: 401 });
   }
 
-  // ⭐ Cookie setzen
+  // ⭐ Cookie setzen (User-ID separat)
   const cookieStore = await cookies();
+
+  cookieStore.set("userId", user._id.toString(), {
+    httpOnly: true,
+    secure: true,
+    sameSite: "lax",
+    path: "/",
+    maxAge: 60 * 60 * 24 * 7, // 7 Tage
+  });
+
+  // Optional: kleines User-Objekt für Frontend
   cookieStore.set(
     "user",
     JSON.stringify({
       _id: user._id.toString(),
       username: user.username,
       email: user.email,
+      newsletter: user.newsletter,
     }),
     {
-      httpOnly: true,
+      httpOnly: false, // Frontend darf es lesen
       secure: true,
       sameSite: "lax",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 Tage
+      maxAge: 60 * 60 * 24 * 7,
     }
   );
 
@@ -43,6 +54,7 @@ export async function POST(req: NextRequest) {
       _id: user._id,
       username: user.username,
       email: user.email,
+      newsletter: user.newsletter,
     },
   });
 }

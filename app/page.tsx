@@ -27,7 +27,9 @@ export default function ReisePage() {
 
       {/* HERO SLIDER – Container */}
       <div className="max-w-7xl mx-auto px-6">
-        <div className="relative w-full h-105 overflow-hidden mb-12 rounded-2xl mt-6">
+        <div className="relative w-full h-105 overflow-hidden mb-12 rounded-2xl mt-6 
+                shadow-[0_0_35px_rgba(212,175,55,0.35)]">
+
           <Image
             src={sliderImages[index].img}
             alt={sliderImages[index].city}
@@ -47,11 +49,13 @@ export default function ReisePage() {
       {/* INTRO TEXTBLOCK – gleicher Container wie Slider */}
       <div className="max-w-7xl mx-auto px-6 mb-12">
   <div
-    className="w-full p-6 rounded-2xl 
-               bg-white/60 backdrop-blur-md 
-               border border-[#e6e6e6] text-center
-               shadow-[0_0_18px_rgba(212,175,55,0.45)]"
-  >
+  className="w-full p-6 rounded-2xl bg-white/60 backdrop-blur-md text-center
+             border border-transparent 
+             shadow-[8px_-8px_25px_rgba(212,175,55,0.35)]
+             hover:shadow-[12px_-12px_35px_rgba(212,175,55,0.55)]
+             transition-all duration-500"
+>
+
     <h2 className="text-3xl font-bold mb-4 text-slate-800">
       <span className="text-[#d4af37] italic">Golden</span>
       <span className="text-[#3a3a3a] italic">Wings</span>
@@ -107,7 +111,7 @@ export default function ReisePage() {
                 href={`/tour/${item.city.toLowerCase()}`}
                 className="mt-4 inline-block text-center w-full bg-[#f7e7b5] text-slate-800 font-semibold py-2 px-3 rounded-lg text-sm hover:bg-[#c9a227] hover:text-white transition-all duration-300 active:scale-95"
               >
-                Informationen anzeigen
+                Details anzeigen
               </Link>
             </div>
           </article>

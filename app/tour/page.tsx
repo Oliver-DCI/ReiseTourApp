@@ -5,13 +5,17 @@ import Image from "next/image";
 export default function ReisePage() {
   return (
     <div className="bg-white min-h-screen">
-      <div className="max-w-7xl mx-auto py-12 px-6">
+      <div className="max-w-7xl mx-auto py-6 px-6">
 
         {/* Textblock – jetzt exakt so breit wie die Karten */}
-        <div className="max-w-7xl mx-auto mb-12 p-8 rounded-2xl 
-                        bg-white/60 backdrop-blur-md 
-                        border border-[#e6e6e6] text-center
-                        shadow-[0_0_18px_rgba(212,175,55,0.45)]">
+        <div
+          className="max-w-7xl mx-auto mb-12 p-8 rounded-2xl 
+             bg-white/60 backdrop-blur-md text-center
+             border border-transparent
+             shadow-[8px_-8px_25px_rgba(212,175,55,0.35)]
+             hover:shadow-[12px_-12px_35px_rgba(212,175,55,0.55)]
+             transition-all duration-500"
+        >
           <h1 className="text-3xl font-bold mb-4 text-slate-800 ">
             Deutschland entdecken –{" "}
             <span className="text-[#d4af37]">Vielfalt erleben</span>
@@ -29,7 +33,7 @@ export default function ReisePage() {
         </div>
 
         {/* Karten-Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
           {tours.map((item) => (
             <article
               key={item.city}
@@ -73,6 +77,9 @@ export default function ReisePage() {
             </article>
           ))}
         </div>
+
+        {/* Abstand zum Footer angleichen */}
+        <div className="h-16"></div>
 
       </div>
     </div>

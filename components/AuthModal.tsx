@@ -9,7 +9,14 @@ export default function AuthModal() {
   const { setUser } = useAuth();
 
   const [mode, setMode] = useState<"login" | "register">("login");
-  const [form, setForm] = useState({ email: "", password: "", username: "" });
+
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    username: "",
+    newsletter: false,
+  });
+
   const [error, setError] = useState("");
 
   if (!isOpen) return null;
@@ -18,7 +25,8 @@ export default function AuthModal() {
     e.preventDefault();
     setError("");
 
-    const endpoint = mode === "login" ? "/api/auth/login" : "/api/auth/register";
+    const endpoint =
+      mode === "login" ? "/api/auth/login" : "/api/auth/register";
 
     const res = await fetch(endpoint, {
       method: "POST",
@@ -70,14 +78,30 @@ export default function AuthModal() {
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
 
           {mode === "register" && (
-            <input
-              type="text"
-              placeholder="Benutzername"
-              className="border p-2 rounded"
-              value={form.username}
-              onChange={(e) => setForm({ ...form, username: e.target.value })}
-              required
-            />
+            <>
+              <input
+                type="text"
+                placeholder="Benutzername"
+                className="border p-2 rounded"
+                value={form.username}
+                onChange={(e) =>
+                  setForm({ ...form, username: e.target.value })
+                }
+                required
+              />
+
+              {/* Newsletter Checkbox */}
+              <label className="flex items-center gap-2 text-sm cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={form.newsletter}
+                  onChange={(e) =>
+                    setForm({ ...form, newsletter: e.target.checked })
+                  }
+                />
+                Newsletter abonnieren
+              </label>
+            </>
           )}
 
           <input

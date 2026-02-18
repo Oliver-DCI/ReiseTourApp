@@ -53,8 +53,8 @@ export default function ReisePage() {
                shadow-[0_0_18px_rgba(212,175,55,0.45)]"
   >
     <h2 className="text-3xl font-bold mb-4 text-slate-800">
-      <span className="text-[#d4af37]">Golden</span>
-      <span className="text-[#3a3a3a]">Wings</span>
+      <span className="text-[#d4af37] italic">Golden</span>
+      <span className="text-[#3a3a3a] italic">Wings</span>
       {" "}– Reisen mit Stil & Komfort
     </h2>
 

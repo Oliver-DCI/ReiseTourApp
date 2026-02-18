@@ -21,7 +21,7 @@ export default function ReiseLayout({
 
       {/* Sub-Navigation */}
       <nav className="bg-white py-4 border-1 border-[#e6e6e6] shadow-sm">
-        <div className="mx-auto max-w-[1400px] px-7 flex justify-center gap-16 font-medium">
+        <div className="mx-auto max-w-[1400px] px-7 flex justify-center gap-10 font-medium">
           {links.map((l) => {
             const isActive = pathname === l.href;
 

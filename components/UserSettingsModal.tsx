@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUserSettingsModal } from "@/app/context/UserSettingsModalContext";
 import { useAuth } from "@/app/context/AuthContext";
 
@@ -21,6 +21,13 @@ export default function UserSettingsModal() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => { 
+    if (isOpen && user) { 
+      setUsername(user.username || ""); 
+      setStreet(user.street || ""); 
+      setZip(user.zip || ""); 
+      setCity(user.city || ""); } }, [isOpen, user]);
 
   if (!isOpen || !user) return null;
 

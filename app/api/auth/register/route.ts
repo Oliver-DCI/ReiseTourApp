@@ -7,9 +7,11 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const { username, email, password, newsletter } = await req.json();
+    // Neue Felder: street, zip, city
+    const { username, email, password, street, zip, city } = await req.json();
 
-    if (!username || !email || !password) {
+    // Validierung
+    if (!username || !email || !password || !street || !zip || !city) {
       return NextResponse.json(
         { error: "Alle Felder sind erforderlich" },
         { status: 400 }
@@ -28,12 +30,14 @@ export async function POST(req: NextRequest) {
     // Passwort hashen
     const hashed = await bcrypt.hash(password, 10);
 
-    // User speichern (inkl. Newsletter)
+    // User speichern (ohne Newsletter)
     const newUser = await User.create({
       username,
       email,
       password: hashed,
-      newsletter: newsletter ?? false, // falls undefined → false
+      street,
+      zip,
+      city,
     });
 
     return NextResponse.json(

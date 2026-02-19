@@ -7,11 +7,9 @@ export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const { username, newsletter, oldPassword, newPassword } = await req.json();
+    const { username, street, zip, city, oldPassword, newPassword } =
+      await req.json();
 
-    // User aus Session holen (du speicherst ihn im Frontend)
-    // Wir erwarten, dass der User im Cookie gespeichert ist
-    // oder du sendest die ID im Body – hier nehmen wir Cookie-basierte Lösung
     const userId = req.cookies.get("userId")?.value;
 
     if (!userId) {
@@ -29,13 +27,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Username aktualisieren
-    user.username = username;
+    // Basisdaten aktualisieren
+    user.username = username || user.username;
+    user.street = street || user.street;
+    user.zip = zip || user.zip;
+    user.city = city || user.city;
 
-    // Newsletter aktualisieren
-    user.newsletter = newsletter;
-
-    // Passwort ändern (nur wenn neues Passwort angegeben wurde)
+    // Passwort ändern
     if (newPassword) {
       if (!oldPassword) {
         return NextResponse.json(

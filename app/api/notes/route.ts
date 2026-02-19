@@ -1,26 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Note from "@/models/Note";
-import User from "@/models/User";
 import { cookies } from "next/headers";
+
+// ⭐ Hilfsfunktion: User-ID aus Cookie holen
+async function getUserId() {
+  const cookieStore = await cookies();
+  const userId = cookieStore.get("userId")?.value;
+  return userId || null;
+}
 
 // ⭐ POST – Notiz speichern
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const cookieStore = await cookies();
-    const userCookie = cookieStore.get("user");
-
-    if (!userCookie) {
-      return NextResponse.json(
-        { error: "Nicht eingeloggt" },
-        { status: 401 }
-      );
+    const userId = await getUserId();
+    if (!userId) {
+      return NextResponse.json({ error: "Nicht eingeloggt" }, { status: 401 });
     }
-
-    const userData = JSON.parse(userCookie.value);
-    const user = await User.findById(userData._id);
 
     const { city, note } = await req.json();
 
@@ -32,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
 
     const newNote = await Note.create({
-      userId: user._id,
+      userId,
       city,
       text: note,
       done: false,
@@ -41,10 +39,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ success: true, note: newNote });
   } catch (err) {
     console.error("NOTES POST ERROR:", err);
-    return NextResponse.json(
-      { error: "Serverfehler" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }
 
@@ -63,27 +58,17 @@ export async function GET(req: NextRequest) {
       );
     }
 
-    const cookieStore = await cookies();
-    const userCookie = cookieStore.get("user");
-
-    if (!userCookie) {
+    const userId = await getUserId();
+    if (!userId) {
       return NextResponse.json({ notes: [] });
     }
 
-    const userData = JSON.parse(userCookie.value);
-
-    const notes = await Note.find({
-      userId: userData._id,
-      city,
-    }).sort({ createdAt: -1 });
+    const notes = await Note.find({ userId, city }).sort({ createdAt: -1 });
 
     return NextResponse.json({ notes });
   } catch (err) {
     console.error("NOTES GET ERROR:", err);
-    return NextResponse.json(
-      { error: "Serverfehler" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }
 
@@ -95,10 +80,7 @@ export async function PATCH(req: NextRequest) {
     const { id, done } = await req.json();
 
     if (!id) {
-      return NextResponse.json(
-        { error: "ID fehlt" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "ID fehlt" }, { status: 400 });
     }
 
     const updated = await Note.findByIdAndUpdate(
@@ -110,10 +92,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ success: true, note: updated });
   } catch (err) {
     console.error("NOTES PATCH ERROR:", err);
-    return NextResponse.json(
-      { error: "Serverfehler" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }
 
@@ -126,10 +105,7 @@ export async function DELETE(req: NextRequest) {
     const id = searchParams.get("id");
 
     if (!id) {
-      return NextResponse.json(
-        { error: "ID fehlt" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "ID fehlt" }, { status: 400 });
     }
 
     await Note.findByIdAndDelete(id);
@@ -137,9 +113,6 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("NOTES DELETE ERROR:", err);
-    return NextResponse.json(
-      { error: "Serverfehler" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Serverfehler" }, { status: 500 });
   }
 }

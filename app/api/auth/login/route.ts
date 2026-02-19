@@ -19,42 +19,48 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Wrong password" }, { status: 401 });
   }
 
-  // ⭐ Cookie setzen (User-ID separat)
   const cookieStore = await cookies();
+  const isProd = process.env.NODE_ENV === "production";
 
+  // ⭐ Cookie mit User-ID
   cookieStore.set("userId", user._id.toString(), {
     httpOnly: true,
-    secure: true,
+    secure: isProd,        // DEV = false, PROD = true
     sameSite: "lax",
     path: "/",
-    maxAge: 60 * 60 * 24 * 7, // 7 Tage
+    maxAge: 60 * 60 * 24 * 7,
   });
 
-  // Optional: kleines User-Objekt für Frontend
+  // ⭐ Frontend-User-Cookie (ohne Passwort)
   cookieStore.set(
     "user",
     JSON.stringify({
       _id: user._id.toString(),
       username: user.username,
       email: user.email,
-      newsletter: user.newsletter,
+      street: user.street,
+      zip: user.zip,
+      city: user.city,
     }),
     {
-      httpOnly: false, // Frontend darf es lesen
-      secure: true,
+      httpOnly: false,     // Frontend darf lesen
+      secure: isProd,      // DEV = false, PROD = true
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     }
   );
 
+  // ⭐ Response für AuthContext
   return NextResponse.json({
     success: true,
     user: {
-      _id: user._id,
+      _id: user._id.toString(),
       username: user.username,
       email: user.email,
-      newsletter: user.newsletter,
+      street: user.street,
+      zip: user.zip,
+      city: user.city,
     },
   });
 }

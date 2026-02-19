@@ -1,15 +1,48 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, models, model } from "mongoose";
 
-const UserSchema = new mongoose.Schema({
-  username: String,
-  email: { type: String, unique: true },
-  password: String,
+const UserSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
 
-  // ➕ Neues Feld für Newsletter
-  newsletter: {
-    type: Boolean,
-    default: false,
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+
+    password: {
+      type: String,
+      required: true,
+    },
+
+    street: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    zip: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    city: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
-});
+  { timestamps: true }
+);
 
-export default mongoose.models.User || mongoose.model("User", UserSchema);
+// Verhindert Kompilierungsfehler bei Hot Reload in Next.js
+const User = models.User || model("User", UserSchema);
+
+export default User;

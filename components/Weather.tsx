@@ -42,7 +42,7 @@ export default function Weather({ city }: { city: string }) {
   return (
     <div className="bg-white/70 border border-[#d4af37] rounded-xl p-4 shadow-md">
       <h3 className="text-lg font-bold text-slate-900 mb-1">
-        Aktuelles Wetter
+        Aktuelles Wetter in {data.name}
       </h3>
 
       <p className="text-2xl font-light text-slate-800 leading-tight">

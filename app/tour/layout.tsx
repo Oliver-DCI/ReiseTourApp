@@ -17,7 +17,7 @@ export default function ReiseLayout({
   ];
 
   return (
-    <section className="bg-white flex flex-col flex-grow-0">
+    <section className="bg-white">
 
       {/* Sub-Navigation */}
       <nav className="bg-white py-4 border-[#e6e6e6] shadow-sm">

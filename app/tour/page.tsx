@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ReisePage() {
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white">
       <div className="max-w-7xl mx-auto py-6 px-6">
 
         {/* Textblock – jetzt exakt so breit wie die Karten */}
@@ -33,7 +33,7 @@ export default function ReisePage() {
         </div>
 
         {/* Karten-Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
           {tours.map((item) => (
             <article
               key={item.city}
@@ -79,7 +79,7 @@ export default function ReisePage() {
         </div>
 
         {/* Abstand zum Footer angleichen */}
-        <div className="h-16"></div>
+        <div className="pb-10"></div>
 
       </div>
     </div>

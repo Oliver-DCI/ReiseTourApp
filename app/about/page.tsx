@@ -17,7 +17,9 @@ export default function AboutPage() {
         {/* Textbereich */}
         <div>
           <h1 className="text-4xl font-bold mb-6 italic text-slate-800">
-            GoldenWings –{" "}
+            <span className="text-[#d4af37] italic">Golden</span> 
+            <span className="text-[#3a3a3a] italic">Wings</span>
+            {" "}–{" "}
             <span className="text-[#d4af37]">Reisen mit Charakter</span>
           </h1>
 

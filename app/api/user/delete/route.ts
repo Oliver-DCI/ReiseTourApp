@@ -1,35 +1,55 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import User from "@/models/User";
+import { cookies } from "next/headers";
 
 export async function DELETE(req: NextRequest) {
   try {
     await connectDB();
 
-    const userId = req.cookies.get("userId")?.value;
+    const cookieStore = await cookies();
+    const userId = cookieStore.get("userId")?.value;
 
     if (!userId) {
       return NextResponse.json(
-        { error: "Nicht eingeloggt" },
+        { error: "ACCESS_DENIED: No active session found" },
         { status: 401 }
       );
     }
 
-    await User.findByIdAndDelete(userId);
+    // 1. Permanent aus der Datenbank entfernen
+    const deletedUser = await User.findByIdAndDelete(userId);
 
-    // Cookie löschen
-    const res = NextResponse.json(
-      { message: "Account gelöscht" },
+    if (!deletedUser) {
+      return NextResponse.json(
+        { error: "NODE_NOT_FOUND: Identity already purged" },
+        { status: 404 }
+      );
+    }
+
+    // 2. Response vorbereiten
+    const response = NextResponse.json(
+      { message: "Identity Node terminated successfully." },
       { status: 200 }
     );
 
-    res.cookies.set("userId", "", { expires: new Date(0) });
+    // 3. Alle Cookies restlos löschen (Vergangenheitsdatum)
+    const purgeOptions = {
+      path: "/",
+      expires: new Date(0),
+      sameSite: "lax" as const,
+      secure: process.env.NODE_ENV === "production",
+    };
 
-    return res;
+    response.cookies.set("userId", "", { ...purgeOptions, httpOnly: true });
+    response.cookies.set("user", "", { ...purgeOptions, httpOnly: false });
+
+    return response;
+    
   } catch (err) {
     console.error("DELETE ERROR:", err);
     return NextResponse.json(
-      { error: "Serverfehler" },
+      { error: "CRITICAL_CORE_FAILURE: Termination protocol aborted" },
       { status: 500 }
     );
   }

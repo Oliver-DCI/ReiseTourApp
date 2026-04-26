@@ -5,62 +5,71 @@ import bcrypt from "bcryptjs";
 import { cookies } from "next/headers";
 
 export async function POST(req: NextRequest) {
-  await connectDB();
+  try {
+    await connectDB();
 
-  const { email, password } = await req.json();
+    const { email, password } = await req.json();
 
-  const user = await User.findOne({ email });
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  }
+    // 1. User Validierung
+    const user = await User.findOne({ email });
+    if (!user) {
+      // Sicherheits-Tipp: "Invalid Credentials" statt "User not found" 
+      // verhindert E-Mail-Enumeration
+      return NextResponse.json({ error: "Access Denied: Credentials Invalid" }, { status: 401 });
+    }
 
-  const match = await bcrypt.compare(password, user.password);
-  if (!match) {
-    return NextResponse.json({ error: "Wrong password" }, { status: 401 });
-  }
+    // 2. Password Check
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+      return NextResponse.json({ error: "Access Denied: Credentials Invalid" }, { status: 401 });
+    }
 
-  const cookieStore = await cookies();
-  const isProd = process.env.NODE_ENV === "production";
+    const cookieStore = await cookies();
+    const isProd = process.env.NODE_ENV === "production";
 
-  // ⭐ Cookie mit User-ID
-  cookieStore.set("userId", user._id.toString(), {
-    httpOnly: true,
-    secure: isProd,        // DEV = false, PROD = true
-    sameSite: "lax",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 7,
-  });
-
-  // ⭐ Frontend-User-Cookie (ohne Passwort)
-  cookieStore.set(
-    "user",
-    JSON.stringify({
+    // 3. User Objekt für Cookies & Response vorbereiten
+    // Wir fügen hier 'role' hinzu, um das Admin-Panel später zu schützen
+    const userData = {
       _id: user._id.toString(),
       username: user.username,
       email: user.email,
       street: user.street,
       zip: user.zip,
       city: user.city,
-    }),
-    {
-      httpOnly: false,     // Frontend darf lesen
-      secure: isProd,      // DEV = false, PROD = true
+      role: user.role || "user", // Default Rolle
+    };
+
+    // ⭐ Secure Session Cookie (Server-only)
+    cookieStore.set("userId", userData._id, {
+      httpOnly: true,
+      secure: isProd,
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
-    }
-  );
+    });
 
-  // ⭐ Response für AuthContext
-  return NextResponse.json({
-    success: true,
-    user: {
-      _id: user._id.toString(),
-      username: user.username,
-      email: user.email,
-      street: user.street,
-      zip: user.zip,
-      city: user.city,
-    },
-  });
+    // ⭐ Public User Cookie (Für den AuthContext im Frontend)
+    cookieStore.set(
+      "user",
+      JSON.stringify(userData),
+      {
+        httpOnly: false, 
+        secure: isProd,
+        sameSite: "lax",
+        path: "/",
+        maxAge: 60 * 60 * 24 * 7,
+      }
+    );
+
+    // 4. Response für den Client
+    return NextResponse.json({
+      success: true,
+      message: "Neural Link Established",
+      user: userData,
+    });
+
+  } catch (error) {
+    console.error("Auth Error:", error);
+    return NextResponse.json({ error: "Internal Server Interface Error" }, { status: 500 });
+  }
 }

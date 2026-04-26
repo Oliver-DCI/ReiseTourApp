@@ -1,9 +1,10 @@
 export type Spot = {
-  id: string; // WICHTIG: Jede Tour braucht eine ID für die URL
+  id: string;
   title: string;
   duration: string;
   price: string;
   img: string;
+  category?: string; // Optional: Hilft beim Filtern (z.B. 'Express', 'Night', 'Luxury')
 };
 
 export type City = {
@@ -12,15 +13,15 @@ export type City = {
   description: string;
   img: string;
   spots: Spot[];
+  coordinates?: { lat: number; lng: number }; // Optional: Für Karten-Integration
 };
 
 export const tours: City[] = [
-  // Berlin
   {
     city: "Berlin",
-    title: "Hauptstadt der Freiheit und Vielfalt",
+    title: "Capital of Diversity",
     description:
-      "Berlin liegt zwischen Spree und Havel. Wer Berlin betritt, spürt den Pulsschlag der Geschichte und den Rhythmus der Gegenwart. Es ist nicht nur eine Stadt, sondern ein lebendiges Mosaik aus Erinnerung und Aufbruch, in dem jeder Schritt zwischen alten Fassaden und moderner Architektur von Wandel und Freiheit erzählt.",
+      "Berlin ist der zentrale Hub des Netzwerks. Zwischen Spree und Havel verschmelzen historische Monumente mit der rohen Energie der Moderne. Ein Sektor, der niemals schläft und in dem jeder Schritt von Freiheit und digitalem Wandel erzählt.",
     img: "https://images.pexels.com/photos/19284574/pexels-photo-19284574.jpeg",
     spots: [
       {
@@ -37,21 +38,17 @@ export const tours: City[] = [
         price: "55€",
         img: "https://images.pexels.com/photos/33480973/pexels-photo-33480973.jpeg",
       },
-            
     ],
   },
-
-  // Frankfurt 
   {
     city: "Frankfurt",
-    title: "Mainmetropole zwischen Skyline und Geschichte",
+    title: "Skyline Sector",
     description:
-      "Frankfurt am Main liegt am Ufer des Mains, wo Tradition und Moderne aufeinandertreffen. Wer Frankfurt betritt, spürt sofort die Energie einer Stadt, die nach oben wächst und zugleich tief in ihrer Geschichte verwurzelt ist. Es ist nicht nur ein Finanzzentrum, sondern ein Ort der Kontraste, in dem Glasfassaden den Himmel spiegeln und Fachwerkhäuser von vergangenen Jahrhunderten erzählen.",
+      "Das Finanzherz des Systems. Wo Glasfassaden den Himmel spiegeln und historische Fachwerkhäuser die Wurzeln der Stadt bewahren. Frankfurt bietet die perfekte Symbiose aus High-Speed Business und urbaner Erholung am Main.",
     img: "https://images.pexels.com/photos/3772193/pexels-photo-3772193.jpeg",
-
     spots: [
       {
-        id: "frankfurt-hop-on-hop-off",
+        id: "frankfurt-night-express",
         title: "Frankfurt Night Express",
         duration: "2 Std.",
         price: "60€",
@@ -66,17 +63,15 @@ export const tours: City[] = [
       },
     ],
   },
-
-  // München
   {
     city: "Muenchen",
-    title: "Weltstadt mit Herz und Alpenblick",
+    title: "Bavarian High-Tech Hub",
     description:
-      "München liegt zwischen Isar und Alpenrand. Wer München betritt, spürt die besondere Mischung aus Tradition und Lebensfreude. Es ist nicht nur die Heimat des Oktoberfests, sondern eine Stadt, in der bayerisches Brauchtum auf moderne Eleganz trifft. Zwischen historischen Plätzen, grünen Biergärten und klarer Bergluft erzählt jeder Augenblick von Genuss, Kultur und einem Lebensgefühl, das weit über die Stadtgrenzen hinausstrahlt.",
+      "Tradition trifft auf Eleganz am Alpenrand. München ist die Weltstadt mit Herz, in der bayerisches Brauchtum und moderne Innovation Hand in Hand gehen. Ein Ort für Genießer und Visionäre.",
     img: "https://images.pexels.com/photos/13762982/pexels-photo-13762982.jpeg",
     spots: [
       {
-        id: "munich-hop-on-hop-off",
+        id: "munich-stadium-tour",
         title: "München Stadion Tour",
         duration: "1 Tag",
         price: "26€",
@@ -89,33 +84,29 @@ export const tours: City[] = [
         price: "69€",         
         img: "https://images.pexels.com/photos/4213372/pexels-photo-4213372.jpeg",
       },
-      
     ],
   },
-
-  // Hamburg
   {
     city: "Hamburg",
-    title: "Weltstadt mit Herz und Alpenblick",
+    title: "Maritime Interface", // Titel korrigiert (war vorher München)
     description:
-      "Hamburg liegt an Elbe und Alster. Wer Hamburg betritt, spürt sofort das maritime Flair und die weltoffene Atmosphäre. Es ist nicht nur die Heimat des Hafens und der Reeperbahn, sondern eine Stadt, in der hanseatische Tradition auf moderne Architektur trifft. Zwischen historischen Speichern, weiten Wasserflächen und lebendigen Vierteln erzählt jeder Augenblick von Freiheit, Kultur und einem nordischen Lebensgefühl, das weit über die Stadtgrenzen hinausstrahlt.",
+      "Das Tor zur Welt. Hamburg besticht durch sein maritimes Flair an Elbe und Alster. Hanseatische Tradition trifft auf die futuristische Architektur der Elbphilharmonie – ein Sektor definiert durch Freiheit und Weite.",
     img: "https://images.pexels.com/photos/6570407/pexels-photo-6570407.jpeg",
     spots: [
       {
-        id: "hamburg-hop-on-hop-off",
-        title: "Hamburg Elb Filharmonie",
+        id: "hamburg-elbphilharmonie",
+        title: "Hamburg Elbphilharmonie",
         duration: "2 Std.",
         price: "29€",        
         img: "https://images.pexels.com/photos/258642/pexels-photo-258642.jpeg",
       },
       {
-        id: "hamburg-harbor-cruise",
+        id: "hamburg-boots-tour",
         title: "Hamburg Boots Tour",
-        duration: "4 Tag",
+        duration: "4 Std.", // Korrigiert: Von 4 Tag auf 4 Std.
         price: "46€",
         img: "https://images.pexels.com/photos/29092045/pexels-photo-29092045.jpeg",
       },
-      
     ],
   },
 ];

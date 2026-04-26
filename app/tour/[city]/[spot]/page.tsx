@@ -1,14 +1,18 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { tours } from "@/data/tours";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { HiOutlineClock, HiOutlineTicket, HiOutlineCheckBadge, HiOutlineArrowLeft } from "react-icons/hi2";
 
-export default async function SpotDetailPage({
+export default function SpotDetailPage({
   params,
 }: {
-  params: Promise<{ city: string; spot: string }>;
+  params: { city: string; spot: string };
 }) {
-  const { city, spot } = await params;
+  const { city, spot } = params;
 
   const currentCity = tours.find(
     (tour) => tour.city.toLowerCase() === city.toLowerCase()
@@ -20,88 +24,130 @@ export default async function SpotDetailPage({
   if (!currentSpot) notFound();
 
   return (
-    <main className="min-h-screen bg-[#faf7f2] pb-20">
+    <main className="min-h-screen bg-[#030712] text-white pb-32 relative overflow-hidden">
+      
+      {/* Background Glows */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[150px] -z-10" />
+      <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-cyan-600/5 rounded-full blur-[120px] -z-10" />
 
-      {/* Navigation & Header */}
-      <div className="max-w-4xl mx-auto px-4 pt-8 md:pt-12">
-        <Link
-          href={`/tour/${city}`}
-          className="text-sm font-medium text-slate-600 hover:text-[#d4af37] transition-colors flex items-center gap-2 mb-6"
+      {/* Navigation & Header Area */}
+      <div className="max-w-5xl mx-auto px-6 pt-12 md:pt-20">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
         >
-          ← Zurück zu {currentCity?.city}
-        </Link>
+          <Link
+            href={`/tour/${city}`}
+            className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.2em] text-white/40 hover:text-blue-400 transition-colors mb-8"
+          >
+            <HiOutlineArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+            Back to {currentCity?.city} System
+          </Link>
 
-        <h1 className="text-2xl md:text-5xl font-extrabold text-slate-800 tracking-tight mb-6">
-          {currentSpot.title}
-        </h1>
+          <h1 className="text-4xl md:text-7xl font-black uppercase tracking-tighter mb-8 leading-none">
+            {currentSpot.title.split(' ').map((word, i) => (
+              <span key={i} className={i % 2 === 1 ? "text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400" : ""}>
+                {word}{" "}
+              </span>
+            ))}
+          </h1>
+        </motion.div>
 
-        {/* Quick Info Bar */}
-        <div className="flex flex-wrap gap-4 md:gap-8 mb-8 py-4 border-y border-slate-200">
-          <div className="flex items-center gap-2 text-slate-700">
-            <span className="text-xl">⏱</span>
-            <span className="font-medium">Dauer: {currentSpot.duration}</span>
+        {/* Technical Info Bar */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap gap-8 py-6 border-y border-white/10 mb-12"
+        >
+          <div className="flex items-center gap-3">
+            <HiOutlineClock className="text-blue-400" size={24} />
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-widest text-white/30">Duration</span>
+              <span className="font-bold font-mono">{currentSpot.duration}</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-2 text-slate-700">
-            <span className="text-xl">💰</span>
-            <span className="font-semibold text-lg text-[#d4af37]">
-              {currentSpot.price}
-            </span>
+          <div className="flex items-center gap-3">
+            <HiOutlineTicket className="text-cyan-400" size={24} />
+            <div className="flex flex-col">
+              <span className="text-[10px] uppercase tracking-widest text-white/30">Price Matrix</span>
+              <span className="font-bold font-mono text-xl text-cyan-400">{currentSpot.price}</span>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Hero Image */}
-      <div className="max-w-5xl mx-auto px-0 md:px-4 mb-10">
-        <div className="relative h-75 md:h-125 w-full overflow-hidden md:rounded-3xl shadow-xl">
+      {/* Visual Asset Container */}
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.3 }}
+        className="max-w-6xl mx-auto px-6 mb-16"
+      >
+        <div className="relative h-[400px] md:h-[600px] w-full overflow-hidden rounded-[3rem] border border-white/10 shadow-2xl group">
           <Image
             src={currentSpot.img}
             alt={currentSpot.title}
             fill
-            className="object-cover"
+            className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
             priority
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent" />
         </div>
-      </div>
+      </motion.div>
 
-      {/* Text Content */}
-      <article className="max-w-3xl mx-auto px-4">
-        <div className="prose prose-slate lg:prose-lg">
-
-          <h3 className="text-2xl font-bold text-slate-800 mb-4">
-            Über diese Tour
+      {/* Briefing Content */}
+      <div className="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+        <div className="md:col-span-2">
+          <h3 className="text-blue-400 font-mono text-xs uppercase tracking-[0.4em] mb-6">
+            Mission Overview
           </h3>
-
-          <p className="text-slate-700 leading-relaxed mb-6">
-            Erlebe ein unvergessliches Abenteuer in{" "}
-            <span className="font-semibold text-slate-900">
-              {currentCity?.city}
-            </span>
-            . Diese Tour zum <span className="italic">{currentSpot.title}</span>{" "}
-            gehört zu unseren beliebtesten Erlebnissen und verbindet Kultur,
-            Geschichte und beeindruckende Natur auf einzigartige Weise.
+          <p className="text-xl text-white/70 leading-relaxed font-light mb-8">
+            Erlebe eine hochgradig kuratierte Expedition in {" "}
+            <span className="text-white font-medium">{currentCity?.city}</span>. 
+            Diese Sequenz am <span className="italic text-blue-400">{currentSpot.title}</span> {" "}
+            verbindet historische Daten mit futuristischer Ästhetik.
           </p>
 
-          {/* Info Box – jetzt in Gold statt Rot */}
-          <div className="bg-[#f7e7b5]/40 border-l-4 border-[#d4af37] p-6 rounded-r-xl shadow-sm">
-            <h4 className="text-[#d4af37] font-bold mb-2 text-lg">
-              Warum diese Tour?
-            </h4>
-            <ul className="list-disc list-inside text-slate-700 space-y-2">
-              <li>Erfahrene lokale Guides</li>
-              <li>Kleine Gruppen für ein persönliches Erlebnis</li>
-              <li>Alle Eintrittsgelder inklusive</li>
-            </ul>
+          <div className="space-y-4 text-white/50 leading-relaxed">
+            <p>
+              Unsere futureFLY Protokolle garantieren einen Zugang zu den exklusivsten 
+              Sichtachsen der Stadt. Jede Tour wurde auf maximale visuelle und 
+              atmosphärische Wirkung hin optimiert.
+            </p>
           </div>
         </div>
 
-        {/* Call to Action Button */}
-        <div className="mt-12">
-          <button className="w-full md:w-auto bg-[#d4af37] text-white px-10 py-4 rounded-2xl font-bold hover:bg-[#b8922c] transition-all active:scale-95 shadow-lg">
-            Jetzt unverbindlich anfragen
-          </button>
-        </div>
-      </article>
+        {/* Feature Box (Glassmorphism) */}
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="bg-white/5 backdrop-blur-xl border border-white/10 p-8 rounded-[2.5rem] self-start"
+        >
+          <div className="flex items-center gap-2 mb-6">
+            <HiOutlineCheckBadge className="text-blue-400" size={24} />
+            <h4 className="text-sm font-bold uppercase tracking-widest">Protocol Stats</h4>
+          </div>
+          <ul className="space-y-4">
+            {["Premium Stealth Guides", "Small Squad Sizes", "All-Access Pass"].map((item, i) => (
+              <li key={i} className="flex items-center gap-3 text-xs font-mono text-white/40">
+                <span className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <motion.button 
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full mt-10 bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-all"
+          >
+            Start Mission
+          </motion.button>
+        </motion.div>
+      </div>
     </main>
   );
 }

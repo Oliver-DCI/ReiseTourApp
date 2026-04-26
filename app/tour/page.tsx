@@ -1,85 +1,112 @@
+"use client";
+
 import { tours } from "@/data/tours";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { HiOutlineRocketLaunch } from "react-icons/hi2";
 
 export default function ReisePage() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { y: 0, opacity: 1 }
+  };
+
   return (
-    <div className="bg-white">
-      <div className="max-w-7xl mx-auto py-6 px-6">
+    <div className="min-h-screen bg-[#030712] text-white">
+      <div className="max-w-7xl mx-auto py-12 px-6">
 
-        {/* Textblock – jetzt exakt so breit wie die Karten */}
-        <div
-          className="max-w-7xl mx-auto mb-12 p-8 rounded-2xl 
-             bg-white/60 backdrop-blur-md text-center
-             border border-transparent
-             shadow-[8px_-8px_25px_rgba(212,175,55,0.35)]
-             hover:shadow-[12px_-12px_35px_rgba(212,175,55,0.55)]
-             transition-all duration-500"
+        {/* Vision Header Block */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="relative mb-16 p-10 md:p-16 rounded-[3rem] 
+             bg-white/5 backdrop-blur-xl text-center
+             border border-white/10 overflow-hidden group"
         >
-          <h1 className="text-3xl font-bold mb-4 text-slate-800 ">
-            Deutschland entdecken –{" "}
-            <span className="text-[#d4af37]">Vielfalt erleben</span>
-          </h1>
+          {/* Background Glow Effect */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-blue-600/20 rounded-full blur-[100px] group-hover:bg-blue-600/30 transition-colors duration-700" />
+          
+          <div className="relative z-10">
+            <h4 className="text-blue-400 font-mono text-xs uppercase tracking-[0.5em] mb-4">
+              Sector Overview
+            </h4>
+            <h1 className="text-4xl md:text-6xl font-black mb-6 uppercase tracking-tighter">
+              Explore the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">futureFLY</span> Network
+            </h1>
 
-          <h2 className="text-xl font-semibold mb-4 text-slate-600">
-            Von der Nordsee bis zu den Alpen – jede Region erzählt ihre eigene Geschichte.
-          </h2>
+            <p className="max-w-3xl mx-auto text-lg text-white/50 leading-relaxed font-light italic border-t border-white/5 pt-6">
+              Von hypermodernen Metropolen bis hin zu geschützten Natursektoren – 
+              unser Netzwerk verbindet die wichtigsten Knotenpunkte Deutschlands 
+              in einer neuen digitalen Ästhetik.
+            </p>
+          </div>
+        </motion.div>
 
-          <p className="text-slate-700 leading-relaxed text-[15px]">
-            Deutschland ist ein Land voller Kontraste: moderne Metropolen, stille Wälder,
-            historische Altstädte und beeindruckende Landschaften. Jede Stadt öffnet ein
-            neues Kapitel voller Kultur, Geschichte und einzigartiger Erlebnisse.
-          </p>
-        </div>
-
-        {/* Karten-Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        {/* Card Grid */}
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
           {tours.map((item) => (
-            <article
+            <motion.article
               key={item.city}
-              className="flex flex-col bg-white rounded-xl shadow-md overflow-hidden border border-gray-200 hover:shadow-2xl transition-all duration-300 group"
+              variants={itemVariants}
+              whileHover={{ y: -10 }}
+              className="flex flex-col bg-white/5 rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-blue-500/50 transition-all duration-500 group"
             >
-              {/* Bild */}
-              <div className="relative h-56 overflow-hidden">
+              {/* Asset Container */}
+              <div className="relative h-64 overflow-hidden">
                 <Image
                   src={item.img}
                   alt={item.city}
                   fill
-                  className="object-cover object-center group-hover:scale-110 transition duration-700"
+                  className="object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-110 transition duration-700"
                 />
 
-                {/* Gold Badge */}
-                <span className="absolute top-3 left-3 bg-[#d4af37] text-white text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
+                {/* Cyber Badge */}
+                <div className="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-mono font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-[0_0_20px_rgba(37,99,235,0.4)]">
                   {item.city}
-                </span>
+                </div>
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-[#030712] via-transparent to-transparent opacity-60" />
               </div>
 
-              {/* Content */}
-              <div className="p-5 flex flex-col grow">
-                <h2 className="text-xl font-bold text-slate-700 mb-2 group-hover:text-[#d4af37] transition-colors">
+              {/* Data Content */}
+              <div className="p-7 flex flex-col grow">
+                <h2 className="text-2xl font-black uppercase tracking-tight mb-3 group-hover:text-blue-400 transition-colors">
                   {item.city}
                 </h2>
 
-                <p className="text-sm text-slate-600 leading-relaxed grow">
-                  {item.description.length > 12
-                    ? item.description.slice(0, 90) + "..."
-                    : item.description}
+                <p className="text-sm text-white/40 leading-relaxed font-light grow mb-6">
+                  {item.description.slice(0, 95)}...
                 </p>
 
-                {/* Button */}
+                {/* Navigation Action */}
                 <Link
                   href={`/tour/${item.city.toLowerCase()}`}
-                  className="mt-4 inline-block text-center w-full bg-[#f7e7b5] text-slate-800 font-semibold py-2 px-3 rounded-lg text-sm hover:bg-[#d4af37] hover:text-white transition-all duration-300 active:scale-95"
+                  className="group/btn flex items-center justify-center gap-2 w-full bg-white/5 hover:bg-blue-600 text-white border border-white/10 hover:border-blue-500 py-4 rounded-2xl text-xs font-mono uppercase tracking-widest transition-all duration-300"
                 >
-                  Mehr Infos anzeigen
+                  <HiOutlineRocketLaunch className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                  Initiate Link
                 </Link>
               </div>
-            </article>
+            </motion.article>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Abstand zum Footer angleichen */}
-        <div className="pb-10"></div>
+        {/* Footer Alignment */}
+        <div className="pb-20"></div>
 
       </div>
     </div>

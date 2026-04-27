@@ -91,8 +91,18 @@ export default function ContactPage() {
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-[3rem] blur opacity-10 group-hover:opacity-30 transition duration-1000"></div>
               
               <div className="relative p-10 md:p-16 rounded-[3rem] bg-slate-900 border border-white/10 shadow-2xl overflow-hidden">
-                {/* Grid Pattern Overlay */}
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 pointer-events-none" />
+                
+                {/* --- FIX: CSS-basiertes Grid statt fehlender grid.svg --- */}
+                <div 
+                  className="absolute inset-0 opacity-10 pointer-events-none"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, rgba(255,255,255,0.1) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '30px 30px'
+                  }}
+                />
                 
                 <div className="relative z-10">
                   <h2 className="text-3xl font-bold mb-10 tracking-tighter flex items-center gap-3">
@@ -100,7 +110,6 @@ export default function ContactPage() {
                     Send Transmission
                   </h2>
 
-                  {/* Hier wird das Formular eingebunden - Du solltest die Styles im ContactForm ebenfalls auf Dark anpassen */}
                   <div className="future-form-wrapper">
                     <ContactForm />
                   </div>

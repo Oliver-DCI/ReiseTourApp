@@ -26,8 +26,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <AuthModalProvider>
               <UserSettingsModalProvider>
                 
-                {/* Background Noise / Grid Overlay (Optional für extra Tiefe) */}
-                <div className="fixed inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none opacity-20 z-0"></div>
+                {/* --- FIX: CSS-basiertes Grid statt fehlender grid.svg --- */}
+                <div 
+                  className="fixed inset-0 pointer-events-none opacity-20 z-0"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                    maskImage: 'linear-gradient(180deg, white, rgba(255,255,255,0))',
+                    WebkitMaskImage: 'linear-gradient(180deg, white, rgba(255,255,255,0))'
+                  }}
+                />
 
                 <Header />
 

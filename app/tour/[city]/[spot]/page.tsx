@@ -4,24 +4,34 @@ import { motion } from "framer-motion";
 import { tours } from "@/data/tours";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { use } from "react"; // WICHTIG: React 'use' Hook importieren
 import Link from "next/link";
-import { HiOutlineClock, HiOutlineTicket, HiOutlineCheckBadge, HiOutlineArrowLeft } from "react-icons/hi2";
+import { 
+  HiOutlineClock, 
+  HiOutlineTicket, 
+  HiOutlineCheckBadge, 
+  HiOutlineArrowLeft 
+} from "react-icons/hi2";
 
 export default function SpotDetailPage({
   params,
 }: {
-  params: { city: string; spot: string };
+  params: Promise<{ city: string; spot: string }>; // Muss als Promise definiert sein
 }) {
-  const { city, spot } = params;
+  // FEHLERBEHEBUNG: In Next.js 15 Client Components müssen params mit 'use' entpackt werden
+  const resolvedParams = use(params);
+  const city = resolvedParams.city;
+  const spot = resolvedParams.spot;
 
   const currentCity = tours.find(
     (tour) => tour.city.toLowerCase() === city.toLowerCase()
   );
+  
   const currentSpot = currentCity?.spots.find(
     (item) => item.id.toLowerCase() === spot.toLowerCase()
   );
 
-  if (!currentSpot) notFound();
+  if (!currentSpot) return notFound();
 
   return (
     <main className="min-h-screen bg-[#030712] text-white pb-32 relative overflow-hidden">
@@ -30,12 +40,9 @@ export default function SpotDetailPage({
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[150px] -z-10" />
       <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-cyan-600/5 rounded-full blur-[120px] -z-10" />
 
-      {/* Navigation & Header Area */}
+      {/* Navigation & Header */}
       <div className="max-w-5xl mx-auto px-6 pt-12 md:pt-20">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <Link
             href={`/tour/${city}`}
             className="group inline-flex items-center gap-2 text-sm font-mono uppercase tracking-[0.2em] text-white/40 hover:text-blue-400 transition-colors mb-8"
@@ -53,7 +60,7 @@ export default function SpotDetailPage({
           </h1>
         </motion.div>
 
-        {/* Technical Info Bar */}
+        {/* Info Bar */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -67,7 +74,6 @@ export default function SpotDetailPage({
               <span className="font-bold font-mono">{currentSpot.duration}</span>
             </div>
           </div>
-
           <div className="flex items-center gap-3">
             <HiOutlineTicket className="text-cyan-400" size={24} />
             <div className="flex flex-col">
@@ -78,7 +84,7 @@ export default function SpotDetailPage({
         </motion.div>
       </div>
 
-      {/* Visual Asset Container */}
+      {/* Hero Image */}
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -87,7 +93,7 @@ export default function SpotDetailPage({
       >
         <div className="relative h-[400px] md:h-[600px] w-full overflow-hidden rounded-[3rem] border border-white/10 shadow-2xl group">
           <Image
-            src={currentSpot.img}
+            src={spot.startsWith('berlin') ? currentSpot.img : currentSpot.img} // Fallback-Check
             alt={currentSpot.title}
             fill
             className="object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
@@ -97,7 +103,7 @@ export default function SpotDetailPage({
         </div>
       </motion.div>
 
-      {/* Briefing Content */}
+      {/* Content */}
       <div className="max-w-4xl mx-auto px-6 grid md:grid-cols-3 gap-12">
         <div className="md:col-span-2">
           <h3 className="text-blue-400 font-mono text-xs uppercase tracking-[0.4em] mb-6">
@@ -106,20 +112,11 @@ export default function SpotDetailPage({
           <p className="text-xl text-white/70 leading-relaxed font-light mb-8">
             Erlebe eine hochgradig kuratierte Expedition in {" "}
             <span className="text-white font-medium">{currentCity?.city}</span>. 
-            Diese Sequenz am <span className="italic text-blue-400">{currentSpot.title}</span> {" "}
-            verbindet historische Daten mit futuristischer Ästhetik.
+            Diese Sequenz am <span className="italic text-blue-400">{currentSpot.title}</span> verbindet historische Daten mit futuristischer Ästhetik.
           </p>
-
-          <div className="space-y-4 text-white/50 leading-relaxed">
-            <p>
-              Unsere futureFLY Protokolle garantieren einen Zugang zu den exklusivsten 
-              Sichtachsen der Stadt. Jede Tour wurde auf maximale visuelle und 
-              atmosphärische Wirkung hin optimiert.
-            </p>
-          </div>
         </div>
 
-        {/* Feature Box (Glassmorphism) */}
+        {/* Sidebar */}
         <motion.div 
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -138,14 +135,9 @@ export default function SpotDetailPage({
               </li>
             ))}
           </ul>
-
-          <motion.button 
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full mt-10 bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] shadow-[0_0_30px_rgba(37,99,235,0.3)] transition-all"
-          >
+          <button className="w-full mt-10 bg-blue-600 hover:bg-blue-500 text-white py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.3em] transition-all">
             Start Mission
-          </motion.button>
+          </button>
         </motion.div>
       </div>
     </main>

@@ -13,6 +13,7 @@ type IdParamsCity = {
 };
 
 export default async function CityPage({ params }: IdParamsCity) {
+  // WICHTIG: Params in Next.js 15 immer awaiten
   const { city } = await params;
 
   const currentCity = tours.find(
@@ -93,7 +94,8 @@ export default async function CityPage({ params }: IdParamsCity) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           {currentCity.spots.map((spot) => (
             <Link
-              href={`/tour/${city}/${spot.id}`}
+              // FIX: Hier wird nun dynamisch auf die City und die Spot-ID verlinkt
+              href={`/tour/${city.toLowerCase()}/${spot.id.toLowerCase()}`}
               key={spot.id}
               className="group"
             >
